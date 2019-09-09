@@ -1,5 +1,6 @@
 package com.adalto.easylist;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -31,7 +32,21 @@ public class FormularioActivity extends AppCompatActivity {
     }
 
     private void salvar(){
+        String nome = etNome.getText().toString();
+        String qtd = etQuantidade.getText().toString();
 
+        if( nome.isEmpty() ){
+            AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+            alerta.setIcon( android.R.drawable.ic_dialog_alert);
+        }
     }
 
+
+
 }
+
+
+
+
+
+,
