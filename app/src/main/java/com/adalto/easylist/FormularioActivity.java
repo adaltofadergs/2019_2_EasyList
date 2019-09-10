@@ -38,6 +38,22 @@ public class FormularioActivity extends AppCompatActivity {
         if( nome.isEmpty() ){
             AlertDialog.Builder alerta = new AlertDialog.Builder(this);
             alerta.setIcon( android.R.drawable.ic_dialog_alert);
+            alerta.setTitle("Atenção!");
+            alerta.setMessage("Você deve informar o nome do produto.");
+            alerta.setPositiveButton("OK", null);
+            alerta.show();
+        }else {
+            Produto p = new Produto();
+            p.setNome( nome );
+            if( qtd.isEmpty() ){
+                p.setQuantidade( 0 );
+            }else {
+                p.setQuantidade( Double.valueOf( qtd ) );
+            }
+
+            ProdutoDAO.inserir( this, p );
+
+            this.finish();
         }
     }
 

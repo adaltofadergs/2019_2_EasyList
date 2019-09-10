@@ -1,19 +1,28 @@
 package com.adalto.easylist;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView lvProdutos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        lvProdutos = findViewById(R.id.lvProdutos);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -30,6 +41,30 @@ public class MainActivity extends AppCompatActivity {
                 startActivity( i );
             }
         });
+
+        lvProdutos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                excluir( (Produto) adapterView.getItemAtPosition(i)  );
+                return true;
+            }
+        });
+    }
+
+    private void excluir(final Produto produto){
+        AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+        alerta.setTitle("Excluir Produto");
+        alerta.setMessage("Confirma a exclusão do produto "
+                + produto.getNome() + "?");
+        alerta.setNeutralButton("Cancelar", null);
+        alerta.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ProdutoDAO.excluir(MainActivity.this, produto.getId());
+            }
+        });
+        alerta.show();
+
     }
 
     @Override
@@ -53,4 +88,28 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        carregarLista();
+    }
+
+    private void carregarLista(){
+        List<Produto> lista = ProdutoDAO.getProdutos(this);
+        ArrayAdapter<Produto> adapter = new ArrayAdapter(
+                this, android.R.layout.simple_list_item_1,
+                lista);
+        lvProdutos.setAdapter( adapter );
+
+    }
+
 }
+
+
+
+
+
+
+
