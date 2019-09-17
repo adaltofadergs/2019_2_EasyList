@@ -29,4 +29,13 @@ public class Produto {
     public void setQuantidade(double quantidade) {
         this.quantidade = quantidade;
     }
+
+
+    @Override
+    public String toString() {
+        if ( quantidade == 0 )
+            return this.nome;
+        else
+            return "" + this.quantidade + " x " + this.nome;
+    }
 }

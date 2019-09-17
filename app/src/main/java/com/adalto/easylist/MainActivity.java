@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 ProdutoDAO.excluir(MainActivity.this, produto.getId());
+                carregarLista();
             }
         });
         alerta.show();
@@ -98,9 +99,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void carregarLista(){
         List<Produto> lista = ProdutoDAO.getProdutos(this);
-        ArrayAdapter<Produto> adapter = new ArrayAdapter(
-                this, android.R.layout.simple_list_item_1,
-                lista);
+
+        if ( lista.size() == 0 ){
+            lvProdutos.setEnabled( false );
+            Produto fake = new Produto();
+            fake.setQuantidade(0);
+            fake.setNome("Lista Vazia!");
+            lista.add( fake );
+        }else {
+            lvProdutos.setEnabled( true );
+        }
+
+//        ArrayAdapter<Produto> adapter = new ArrayAdapter(
+//                this, android.R.layout.simple_list_item_1,
+//                lista);
+
+        AdapterProduto adapter = new AdapterProduto(this, lista);
+
         lvProdutos.setAdapter( adapter );
 
     }
