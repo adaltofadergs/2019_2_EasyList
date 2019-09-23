@@ -12,11 +12,14 @@ public class FormularioActivity extends AppCompatActivity {
 
     private EditText etNome, etQuantidade;
     private Button btnSalvar;
+    private String acao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+
+        acao = getIntent().getExtras().getString("acao");
 
         etNome = (EditText) findViewById(R.id.etNome);
         etQuantidade = (EditText) findViewById(R.id.etQuantidade);

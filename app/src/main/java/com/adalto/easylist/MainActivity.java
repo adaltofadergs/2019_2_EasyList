@@ -38,7 +38,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, FormularioActivity.class);
+                i.putExtra("acao", "inserir");
                 startActivity( i );
+            }
+        });
+
+        lvProdutos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Produto prod = (Produto) adapterView.getItemAtPosition(i);
+
+                Intent intent = new Intent(MainActivity.this, FormularioActivity.class);
+                intent.putExtra("acao", "editar");
+                intent.putExtra("idProduto", prod.getId() );
+                startActivity( intent );
             }
         });
 
