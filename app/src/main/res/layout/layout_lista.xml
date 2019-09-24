@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:id="@+id/tvListaQuantidade"
-            android:hint="Quantidade: "/>
+            android:hint="@string/txtQuantidade"/>
 
     </LinearLayout>
 
@@ -28,6 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvListaNome"
-        android:hint="Nome: "/>
+        android:hint="@string/txtNome"/>
 
 </LinearLayout>

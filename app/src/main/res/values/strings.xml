@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">EasyList</string>
     <string name="action_settings">Settings</string>
+
+    <string name="txtQuantidade">Quantidade: </string>
+    <string name="txtNome">Nome: </string>
+    <string name="txtNomeProduto">Nome do produto: </string>
+    <string name="txtSalvar">SALVAR</string>
+
 </resources>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EasyList</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="txtQuantidade">Quantity: </string>
+    <string name="txtNome">Name: </string>
+    <string name="txtNomeProduto">Product name: </string>
+    <string name="txtSalvar">SAVE</string>
+
+</resources>
