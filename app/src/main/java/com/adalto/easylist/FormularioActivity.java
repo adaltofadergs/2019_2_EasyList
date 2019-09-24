@@ -13,18 +13,23 @@ public class FormularioActivity extends AppCompatActivity {
     private EditText etNome, etQuantidade;
     private Button btnSalvar;
     private String acao;
+    private int idProduto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
 
-        acao = getIntent().getExtras().getString("acao");
-
         etNome = (EditText) findViewById(R.id.etNome);
         etQuantidade = (EditText) findViewById(R.id.etQuantidade);
 
         btnSalvar = (Button) findViewById(R.id.btnSalvar);
+
+        acao = getIntent().getExtras().getString("acao");
+        if ( acao.equals("editar")){
+            idProduto = getIntent().getExtras().getInt("idProduto");
+            carregarFormulario(idProduto);
+        }
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +52,7 @@ public class FormularioActivity extends AppCompatActivity {
             alerta.show();
         }else {
             Produto p = new Produto();
+
             p.setNome( nome );
             if( qtd.isEmpty() ){
                 p.setQuantidade( 0 );
@@ -54,10 +60,23 @@ public class FormularioActivity extends AppCompatActivity {
                 p.setQuantidade( Double.valueOf( qtd ) );
             }
 
-            ProdutoDAO.inserir( this, p );
+            if( acao.equals("inserir")) {
+                ProdutoDAO.inserir(this, p);
+            }
+            if( acao.equals("editar")) {
+                p.setId( idProduto );
+                ProdutoDAO.editar(this, p);
+            }
 
             this.finish();
         }
+    }
+
+    private void carregarFormulario(int idProduto){
+        Produto prod = ProdutoDAO.getProdutoById(this, idProduto);
+        etNome.setText( prod.getNome() );
+        etQuantidade.setText( String.valueOf( prod.getQuantidade() ) );
+
     }
 
 }
